@@ -31,12 +31,12 @@ jobs:
         uses: battila7/get-version-action@v2
 
       # Windows
-      - name: Publish ${{ env.proj_desktop }}
-        run: dotnet publish ${{ env.proj_desktop }}/${{ env.proj_desktop }}.csproj -r win-x64 --configuration Release --version-suffix ${{ steps.version.outputs.version-without-v }} --output ${{ env.build_windows }} --sc false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+      - name: Publish EvflToJson (Windows)
+        run: dotnet publish src/${{ env.proj_desktop }}.csproj -r win-x64 --configuration Release --version-suffix ${{ steps.version.outputs.version-without-v }} --output ${{ env.build_windows }} --sc false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
       # Linux
-      - name: Publish ${{ env.proj_desktop }}
-        run: dotnet publish ${{ env.proj_desktop }}/${{ env.proj_desktop }}.csproj -r linux-x64 --configuration Release --version-suffix ${{ steps.version.outputs.version-without-v }} --output ${{ env.build_linux }} --sc false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+      - name: Publish EvflToJson (Linux)
+        run: dotnet publish src/${{ env.proj_desktop }}.csproj -r linux-x64 --configuration Release --version-suffix ${{ steps.version.outputs.version-without-v }} --output ${{ env.build_linux }} --sc false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
       # Create Release
       - name: "Create Release"
