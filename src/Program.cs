@@ -35,7 +35,7 @@ foreach (var file in bfevFiles) {
             Log($"Successfully converted '{file}' to {ext.ToUpper()}", ConsoleColor.Green);
         }
         else {
-            BfevFile bfev = new(file);
+            BfevFile bfev = BfevFile.FromBinary(file);
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(file) ?? "", $"{Path.GetFileNameWithoutExtension(file)}.json"), bfev.ToJson(format: !compact));
             Log($"Successfully converted '{file}' to JSON (--compact {compact})", ConsoleColor.Green);
         }
