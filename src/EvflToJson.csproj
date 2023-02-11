@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BfevLibrary" Version="0.10.1" />
+    <PackageReference Include="BfevLibrary" Version="0.10.3" />
   </ItemGroup>
 
 </Project>
