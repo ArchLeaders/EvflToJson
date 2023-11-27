@@ -45,9 +45,6 @@ foreach (var file in bfevFiles) {
     }
 }
 
-Log("\nPress enter to continue. . .");
-Console.ReadLine();
-
 static IEnumerable<string> ParseArgs(string args)
 {
     List<string> argList = new();
