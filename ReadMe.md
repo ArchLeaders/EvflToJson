@@ -4,7 +4,7 @@ A simple CLI tool to convert Binary Cafe Event Flow files to JSON and back
 
 ### Setup
 
-- Download and install the latest [DotNET 7.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+- Download and install the latest [DotNET 8.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 - Download the latest EvflToJson [release](https://github.com/ArchLeaders/EvflToJson/releases/latest).
 
 ### Flags
