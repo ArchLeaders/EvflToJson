@@ -1,32 +1,28 @@
 ﻿using BfevLibrary;
 using System.Text;
 
-string[] bfevFiles;
-
-if (args.Length > 0) {
-    bfevFiles = args.Where(File.Exists).ToArray();
-}
-else {
+if (args.Length <= 0) {
     Log("Drag and drop any BFEV or JSON file(s) to convert: ", ConsoleColor.Cyan, inline: true);
     string? input = Console.ReadLine();
 
-    while (string.IsNullOrEmpty(input) || ParseArgs(input ?? "").Where(x => !File.Exists(x) && !x.StartsWith('-')).Any()) {
+    while (string.IsNullOrEmpty(input) || ParseArgs(input).Any(x => !File.Exists(x) && !x.StartsWith('-'))) {
         Log("Invalid input(s). Please specify valid files.\n", ConsoleColor.DarkRed);
         Log("Drag and drop any BFEV or JSON file(s) to convert: ", ConsoleColor.Cyan, inline: true);
         input = Console.ReadLine();
         Console.WriteLine();
     }
 
-    args = ParseArgs(input!).ToArray();
-    bfevFiles = args.Where(File.Exists).ToArray();
+    args = ParseArgs(input).ToArray();
 }
+
+string[] bfevFiles = args.Where(File.Exists).ToArray();
 
 if (bfevFiles.Length <= 0) {
     Log("Could not find any valid files in the provided args", ConsoleColor.DarkRed);
 }
 
-bool compact = args.Where(x => x == "-c" || x == "--compact").Any();
-foreach (var file in bfevFiles) {
+bool compact = args.Any(x => x is "-c" or "--compact");
+foreach (string file in bfevFiles) {
     try {
         if (Path.GetExtension(file) == ".json") {
             BfevFile bfev = BfevFile.FromJson(File.ReadAllText(file));
@@ -45,24 +41,25 @@ foreach (var file in bfevFiles) {
     }
 }
 
+return;
+
 static IEnumerable<string> ParseArgs(string args)
 {
-    List<string> argList = new();
+    List<string> argList = [];
 
     StringBuilder arg = new();
     bool inQt = false;
 
-    for (int i = 0; i < args.Length; i++) {
-        char _char = args[i];
-        if (_char == '\"') {
+    foreach (char @char in args) {
+        if (@char == '\"') {
             inQt = !inQt;
         }
-        else if (!inQt && _char == ' ') {
+        else if (!inQt && @char == ' ') {
             argList.Add(arg.ToString());
             arg.Clear();
         }
         else {
-            arg.Append(_char);
+            arg.Append(@char);
         }
     }
 
@@ -82,5 +79,6 @@ static void Log(string message, ConsoleColor? color = null, bool inline = false)
     else {
         Console.WriteLine(message);
     }
+
     Console.ResetColor();
 }
